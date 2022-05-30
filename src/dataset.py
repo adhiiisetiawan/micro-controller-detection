@@ -19,7 +19,7 @@ class MicrocontrollerDataset(Dataset):
         self.transforms = transforms
 
         # get all the image paths in sorted order
-        self.image_paths = glob.glob(f"{self.dir_path}/.jpg")
+        self.image_paths = glob.glob(f"{self.dir_path}/*.jpg")
         self.all_images = [image_path.split('/')[-1] for image_path in self.image_paths]
         self.all_images = sorted(self.all_images)
 
@@ -33,10 +33,10 @@ class MicrocontrollerDataset(Dataset):
         # convert BGR to RGB color format
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB).astype(np.float32)
         image_resized = cv2.resize(image, (self.width, self.height))
-        image_resized /= 255
+        image_resized /= 255.0
 
         # capture the corresponding xml file for getting the annotation
-        annot_filename = image_name[:4] + '.xml'
+        annot_filename = image_name[:-4] + '.xml'
         annot_file_path = os.path.join(self.dir_path, annot_filename)
 
         boxes = []

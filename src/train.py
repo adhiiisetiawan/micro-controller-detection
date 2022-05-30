@@ -28,7 +28,7 @@ def train(train_data_loader, model):
 
         loss_dict = model(images, targets)
 
-        losses = sum(loss for loss in loss_dict.value())
+        losses = sum(loss for loss in loss_dict.values())
         loss_value = losses.item()
         train_loss_list.append(loss_value)
 
@@ -70,6 +70,7 @@ def validate(valid_data_loader, model):
 
 if __name__ == '__main__':
     # initialize the model and move to the computation device
+    print(DEVICE)
     model = create_model(num_classes=NUM_CLASSES)
     model = model.to(DEVICE)
     
