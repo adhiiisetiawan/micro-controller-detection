@@ -12,11 +12,11 @@ from utils import collate_fn, get_train_transform, get_valid_transform
 
 class MicrocontrollerDataset(Dataset):
     def __init__(self, dir_path, width, height, classes, transforms=None):
-        self.transforms = transforms
         self.dir_path = dir_path
         self.height = height
         self.width = width
         self.classes = classes
+        self.transforms = transforms
 
         # get all the image paths in sorted order
         self.image_paths = glob.glob(f"{self.dir_path}/.jpg")
@@ -97,3 +97,20 @@ class MicrocontrollerDataset(Dataset):
     def __len__(self):
         return len(self.all_images)
 
+train_dataset = MicrocontrollerDataset(TRAIN_DIR, RESIZE_TO, RESIZE_TO, CLASSES, get_train_transform())
+valid_dataset = MicrocontrollerDataset(VALID_DIR, RESIZE_TO, RESIZE_TO, CLASSES, get_valid_transform())
+
+trainloader = DataLoader(
+    train_dataset,
+    batch_size=BATCH_SIZE,
+    shuffle=True,
+    num_workers=0,
+    collate_fn=collate_fn
+)
+validloader = DataLoader(
+    valid_dataset,
+    batch_size=BATCH_SIZE,
+    shuffle=False,
+    num_workers=0,
+    collate_fn=collate_fn
+)
