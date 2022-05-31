@@ -1,4 +1,3 @@
-from email.mime import image
 from config import DEVICE, NUM_CLASSES, NUM_EPOCHS, OUT_DIR
 from config import SAVE_PLOTS_EPOCH, SAVE_MODEL_EPOCH
 from model import create_model
