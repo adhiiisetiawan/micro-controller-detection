@@ -14,9 +14,6 @@ CLASSES = [
 ]
 NUM_CLASSES = 5
 
-# whether to visualize images after crearing the data loaders
-VISUALIZE_TRANSFORMED_IMAGES = False
-
 OUT_DIR = '/home/adhi/micro-controller-detection/outputs'
 SAVE_PLOTS_EPOCH = 2
 SAVE_MODEL_EPOCH = 2

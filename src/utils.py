@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 from albumentations.pytorch import ToTensorV2
-from config import DEVICE, CLASSES as classes
+from config import DEVICE
 
 
 # this class keeps track of the training and validation loss values...
