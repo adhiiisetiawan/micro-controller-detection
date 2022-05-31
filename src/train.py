@@ -29,8 +29,8 @@ def train(train_data_loader, model):
 
         losses = sum(loss for loss in loss_dict.values())
         loss_value = losses.item()
-        train_loss_list.append(loss_value)
 
+        train_loss_list.append(loss_value)
         train_loss_hist.send(loss_value)
 
         losses.backward()
@@ -60,12 +60,15 @@ def validate(valid_data_loader, model):
             loss_dict = model(images, targets)
         losses = sum(loss for loss in loss_dict.values())
         loss_value = losses.item()
+
         val_loss_list.append(loss_value)
         val_loss_hist.send(loss_value)
+        
         val_itr += 1
         # update the loss value beside the progress bar for each iteration
         prog_bar.set_description(desc=f"Loss: {loss_value:.4f}")
     return val_loss_list
+
 
 if __name__ == '__main__':
     # initialize the model and move to the computation device
@@ -106,10 +109,13 @@ if __name__ == '__main__':
         start = time.time()
         train_loss = train(trainloader, model)
         val_loss = validate(validloader, model)
+
         print(f"Epoch #{epoch} train loss: {train_loss_hist.value:.3f}")   
         print(f"Epoch #{epoch} validation loss: {val_loss_hist.value:.3f}")   
+        
         end = time.time()
         print(f"Took {((end - start) / 60):.3f} minutes for epoch {epoch}")
+        
         if (epoch+1) % SAVE_MODEL_EPOCH == 0: # save model after every n epochs
             torch.save(model.state_dict(), f"{OUT_DIR}/model{epoch+1}.pth")
             print('SAVING MODEL COMPLETE...\n')
